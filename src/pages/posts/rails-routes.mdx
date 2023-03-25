@@ -1,0 +1,73 @@
+---
+layout: "@/layouts/BlogPost"
+title: Routing with Rails
+publishDate: 25 Mar 2023
+description: Talking about Ruby on Rails and its routing
+tags: ["ruby", "rails", "web", "dev", "coding", "ActiveRecord"]
+---
+
+Ruby on Rails is a web application framework that is built in Ruby programming language. It allows developers to write web applications quickly and easily. One of the essential features of Rails is its routing system, which defines how HTTP requests are mapped to controller actions.
+
+In this blog post, we will go over how to do Ruby on Rails routing.
+
+Basic Routing in Rails
+
+Routing in Rails is a way of mapping URLs to controller actions. When a request comes in, the Rails router uses predefined rules to determine which controller and action to route the request to.
+
+Let's look at a simple example of a route. The following code creates a route for the home page of our application:
+
+```ruby
+Rails.application.routes.draw do
+  root to: 'pages#home'
+end
+```
+
+In this example, we are using the `root` method to define the root URL of the application, and map it to the `home` action of the `PagesController`.
+
+The `#` symbol is used to separate the controller and action names in the route. In this case, the route maps to the `home` action of the `PagesController`.
+
+Now, when a user visits the home page of our application, the `home` action of the `PagesController` will be executed.
+
+Route Parameters
+
+The real power of Rails routing comes from the ability to define route parameters. Route parameters are placeholders in the URL that can be filled in at runtime.
+
+Here's an example of a route that includes a parameter:
+
+```ruby
+Rails.application.routes.draw do
+  get '/articles/:id', to: 'articles#show'
+end
+```
+
+In this example, we are defining a route that maps to the `show` action of the `ArticlesController`. The `:id` parameter in the URL will be replaced with the actual ID of the article that we want to show.
+
+For example, if we want to show the article with ID 100, we would visit the following URL:
+
+```ruby
+/articles/100
+```
+
+The Rails router would map this URL to the `show` action of the `ArticlesController`, and pass in the value `100` for the `id` parameter.
+
+Route Constraints
+
+In some cases, we may want to constrain the routes in our application based on certain conditions. For example, we may want to require that a parameter matches a certain pattern, or that a user is authenticated before they can access certain routes.
+
+We can use route constraints to enforce these conditions. Here's an example of a route that requires authentication:
+
+```ruby
+Rails.application.routes.draw do
+  resources :articles do
+    member do
+      get 'edit', :constraints => { :user_agent => /Firefox/ }
+    end
+  end
+end
+```
+
+In this example, we are defining a route that maps to the `edit` action of the `ArticlesController`, but only if the user agent in the request header matches the regular expression `/Firefox/`.
+
+Conclusion
+
+In summary, Ruby on Rails routing is a powerful and flexible way of mapping URLs to controller actions in our web applications. With its support for parameters and constraints, we can build complex and dynamic applications that respond to user input in meaningful ways. To learn more about Ruby on Rails routing, check out the official Rails documentation.
